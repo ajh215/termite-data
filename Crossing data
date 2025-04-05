@@ -1,0 +1,26 @@
+cross<-read.table("crossdata.txt",header=TRUE)
+summary(cross)
+
+#cross time data
+plot(cross$grp.size,cross$cross.time,xlab = "Original Group Size",ylab = "Time to barrier cross (s)",pch=19,col="blue",bty="l")
+time<-lm(cross.time~grp.size,data=cross)
+abline(time, lwd = 2)
+
+hist(sqrt(cross$grp.size))
+hist(log(cross$grp.size))
+hist(sqrt(cross$cross.time))
+hist(log(cross$cross.time))
+
+cor.test(cross$grp.size,cross$cross.time,method = "spearman") #not sig
+length(cross$grp.size)
+length(cross$cross.time)
+
+#% indiv data
+plot(cross$grp.size,cross$per.indiv.cross,xlab = "Original Group Size",ylab = "% of individuals crossing",pch=19,col="purple",bty="l")
+per<-lm(per.indiv.cross~grp.size,data=cross)
+abline(per, lwd = 2)
+
+hist(sqrt(cross$per.indiv.cross))
+hist(log(cross$per.indiv.cross))
+
+cor.test(cross$grp.size,cross$per.indiv.cross,method = "spearman") #sig

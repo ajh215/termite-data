@@ -1,0 +1,201 @@
+termite<-read.table("termite.txt",header=TRUE)
+head(termite)
+
+#allogrooming data
+plot(termite$Grp_size,termite$pre_allo) 
+allo1<-lm(pre_allo~Grp_size,data=termite)
+abline(allo1, lwd = 2)
+par(mfrow=c(1,2))
+
+plot(termite$Grp_size,termite$post_allo_inter,xlab = "Original Group Size",ylab = "Average allogrooming (s)",pch=19,col="dark green",bty="l") #dec
+allo2<-lm(post_allo_inter~Grp_size,data=termite)
+abline(allo2,col = "red",lwd = 2)
+
+plot(termite$Grp_size,termite$post_allo_intra) 
+allo3<-lm(post_allo_intra~Grp_size,data=termite)
+abline(allo3,col = "blue",lwd = 2)
+
+test<-read.table("test.txt",header=TRUE)
+head(test)
+allotest1<-lm(Duration[test$Behaviour=="allo"]~Pre.post[test$Behaviour=="allo"]*Grp.size[test$Behaviour=="allo"],data=test)
+allotest2<-lm(Duration[test$Behaviour=="allo"]~Pre.post[test$Behaviour=="allo"]+Grp.size[test$Behaviour=="allo"],data=test)
+allotest3<-lm(Duration[test$Behaviour=="allo"]~Pre.post[test$Behaviour=="allo"],data=test)
+allotest4<-lm(Duration[test$Behaviour=="allo"]~Grp.size[test$Behaviour=="allo"],data=test)
+anova(allotest1,allotest2) #interaction not sig
+anova(allotest2,allotest3) #pre.post not sig
+anova(allotest2,allotest4) #grp.size not sig
+
+pretest<-read.table("pretest.txt", header=TRUE)
+
+preallotest1<-lm(Duration[pretest$Behaviour=="allo"]~Pre.post[pretest$Behaviour=="allo"]*Grp.size[pretest$Behaviour=="allo"],data=pretest)
+preallotest2<-lm(Duration[pretest$Behaviour=="allo"]~Pre.post[pretest$Behaviour=="allo"]+Grp.size[pretest$Behaviour=="allo"],data=pretest)
+preallotest3<-lm(Duration[pretest$Behaviour=="allo"]~Pre.post[pretest$Behaviour=="allo"],data=pretest)
+preallotest4<-lm(Duration[pretest$Behaviour=="allo"]~Grp.size[pretest$Behaviour=="allo"],data=pretest)
+anova(preallotest1,preallotest2) #interaction not sig
+anova(preallotest2,preallotest3) #pre.post not sig
+anova(preallotest2,preallotest4) #grpsize not sig
+
+
+#antennation data
+plot(termite$Grp_size,termite$pre_ant) 
+ant1<-lm(pre_ant~Grp_size,data=termite)
+abline(ant1, lwd = 2)
+
+plot(termite$Grp_size,termite$post_ant_inter,xlab = "Original Group Size",ylab = "Average antennation (s)",pch=19,col="dark green",bty="l") #dec
+ant2<-lm(post_ant_inter~Grp_size,data=termite)
+abline(ant2,col = "red", lwd = 2)
+
+plot(termite$Grp_size,termite$post_ant_intra) 
+ant3<-lm(post_ant_intra~Grp_size,data=termite)
+abline(ant3,col = "blue", lwd =2)
+
+anttest1<-lm(Duration[test$Behaviour=="ant"]~Pre.post[test$Behaviour=="ant"]*Grp.size[test$Behaviour=="ant"],data=test)
+anttest2<-lm(Duration[test$Behaviour=="ant"]~Pre.post[test$Behaviour=="ant"]+Grp.size[test$Behaviour=="ant"],data=test)
+anttest3<-lm(Duration[test$Behaviour=="ant"]~Pre.post[test$Behaviour=="ant"],data=test)
+anttest4<-lm(Duration[test$Behaviour=="ant"]~Grp.size[test$Behaviour=="ant"],data=test)
+anova(anttest1,anttest2) #interaction not sig
+anova(anttest2,anttest3) #pre.post not sig
+anova(anttest2,anttest4) #grp.size not sig
+
+preanttest1<-lm(Duration[pretest$Behaviour=="ant"]~Pre.post[pretest$Behaviour=="ant"]*Grp.size[pretest$Behaviour=="ant"],data=pretest)
+preanttest2<-lm(Duration[pretest$Behaviour=="ant"]~Pre.post[pretest$Behaviour=="ant"]+Grp.size[pretest$Behaviour=="ant"],data=pretest)
+preanttest3<-lm(Duration[pretest$Behaviour=="ant"]~Pre.post[pretest$Behaviour=="ant"],data=pretest)
+preanttest4<-lm(Duration[pretest$Behaviour=="ant"]~Grp.size[pretest$Behaviour=="ant"],data=pretest)
+anova(preanttest1,preanttest2) #INTERACTION SIG
+anova(preanttest1,preanttest3) #PRE.POST SIG
+anova(preanttest1,preanttest4) #GROUP SIZE SIG
+
+
+
+#biting data
+plot(termite$Grp_size,termite$pre_bit) #NA
+bit1<-lm(pre_bit~Grp_size,data=termite)
+abline(bit1, lwd = 2)
+
+plot(termite$Grp_size,termite$post_bit_inter,xlab = "Original Group Size",ylab = "Average biting",pch=19,col="orange",bty="l") #minor dec
+bit2<-lm(post_bit_inter~Grp_size,data=termite)
+abline(bit2,col = "red", lwd = 2)
+
+plot(termite$Grp_size,termite$post_bit_intra) 
+bit3<-lm(post_bit_intra~Grp_size,data=termite)
+abline(bit3,col = "blue", lwd = 2)
+
+bittest1<-lm(Duration[test$Behaviour=="bit"]~Pre.post[test$Behaviour=="bit"]*Grp.size[test$Behaviour=="bit"],data=test)
+bittest2<-lm(Duration[test$Behaviour=="bit"]~Pre.post[test$Behaviour=="bit"]+Grp.size[test$Behaviour=="bit"],data=test)
+bittest3<-lm(Duration[test$Behaviour=="bit"]~Pre.post[test$Behaviour=="bit"],data=test)
+bittest4<-lm(Duration[test$Behaviour=="bit"]~Grp.size[test$Behaviour=="bit"],data=test)
+anova(bittest1,bittest2) #NA
+anova(bittest2,bittest3) #NA
+anova(bittest2,bittest4) #NA
+
+prebittest1<-lm(Duration[pretest$Behaviour=="bit"]~Pre.post[pretest$Behaviour=="bit"]*Grp.size[pretest$Behaviour=="bit"],data=pretest)
+prebittest2<-lm(Duration[pretest$Behaviour=="bit"]~Pre.post[pretest$Behaviour=="bit"]+Grp.size[pretest$Behaviour=="bit"],data=pretest)
+prebittest3<-lm(Duration[pretest$Behaviour=="bit"]~Pre.post[pretest$Behaviour=="bit"],data=pretest)
+prebittest4<-lm(Duration[pretest$Behaviour=="bit"]~Grp.size[pretest$Behaviour=="bit"],data=pretest)
+anova(prebittest1,prebittest2) #NA
+anova(prebittest2,prebittest3) #NA
+anova(prebittest2,prebittest4) #NA
+
+bittest4<-lm(Duration[test$Behaviour=="bit"]~Grp.size[test$Behaviour=="bit"],data=test)
+prebittest4<-lm(Duration[pretest$Behaviour=="bit"]~Grp.size[pretest$Behaviour=="bit"],data=pretest)
+
+summary(bittest4) #not sig
+summary(prebittest4) #not sig
+
+#butting 
+plot(termite$Grp_size,termite$pre_butt) 
+butt1<-lm(pre_butt~Grp_size,data=termite)
+abline(butt1, lwd = 2)
+summary(butt1)
+
+plot(termite$Grp_size,termite$post_butt_inter,xlab = "Original Group Size",ylab = "Average butting",pch=19,col="orange",bty="l") #minor dec
+butt2<-lm(post_butt_inter~Grp_size,data=termite)
+abline(butt2,col = "red", lwd = 2)
+
+plot(termite$Grp_size,termite$post_butt_intra) 
+butt3<-lm(post_butt_intra~Grp_size,data=termite)
+abline(butt3,col = "blue", lwd =2)
+summary(butt3)
+
+butttest1<-lm(Duration[test$Behaviour=="butt"]~Pre.post[test$Behaviour=="butt"]*Grp.size[test$Behaviour=="butt"],data=test)
+butttest2<-lm(Duration[test$Behaviour=="butt"]~Pre.post[test$Behaviour=="butt"]+Grp.size[test$Behaviour=="butt"],data=test)
+butttest3<-lm(Duration[test$Behaviour=="butt"]~Pre.post[test$Behaviour=="butt"],data=test)
+butttest4<-lm(Duration[test$Behaviour=="butt"]~Grp.size[test$Behaviour=="butt"],data=test)
+anova(butttest1,butttest2) #interaction not sig
+anova(butttest2,butttest3) #pre.post not sig
+anova(butttest2,butttest4) #grp.size not sig
+
+prebutttest1<-lm(Duration[pretest$Behaviour=="butt"]~Pre.post[pretest$Behaviour=="butt"]*Grp.size[pretest$Behaviour=="butt"],data=pretest)
+prebutttest2<-lm(Duration[pretest$Behaviour=="butt"]~Pre.post[pretest$Behaviour=="butt"]+Grp.size[pretest$Behaviour=="butt"],data=pretest)
+prebutttest3<-lm(Duration[pretest$Behaviour=="butt"]~Pre.post[pretest$Behaviour=="butt"],data=pretest)
+prebutttest4<-lm(Duration[pretest$Behaviour=="butt"]~Grp.size[pretest$Behaviour=="butt"],data=pretest)
+anova(prebutttest1,prebutttest2) #interaction not sig
+anova(prebutttest2,prebutttest3) #pre.post not sig
+anova(prebutttest2,prebutttest4) #grpsize not sig
+
+
+#recoiling
+plot(termite$Grp_size,termite$pre_rec) 
+rec1<-lm(pre_rec~Grp_size,data=termite)
+abline(rec1, lwd = 2)
+
+plot(termite$Grp_size,termite$post_rec_inter,xlab = "Original Group Size",ylab = "Average recoiling",pch=19,col="orange",bty="l") #dec
+rec2<-lm(post_rec_inter~Grp_size,data=termite)
+abline(rec2,col = "red", lwd = 2)
+
+plot(termite$Grp_size,termite$post_rec_intra) 
+rec3<-lm(post_rec_intra~Grp_size,data=termite)
+abline(rec3,col = "blue", lwd = 2)
+
+rectest1<-lm(Duration[test$Behaviour=="rec"]~Pre.post[test$Behaviour=="rec"]*Grp.size[test$Behaviour=="rec"],data=test)
+rectest2<-lm(Duration[test$Behaviour=="rec"]~Pre.post[test$Behaviour=="rec"]+Grp.size[test$Behaviour=="rec"],data=test)
+rectest3<-lm(Duration[test$Behaviour=="rec"]~Pre.post[test$Behaviour=="rec"],data=test)
+rectest4<-lm(Duration[test$Behaviour=="rec"]~Grp.size[test$Behaviour=="rec"],data=test)
+anova(rectest1,rectest2) #interaction not sig
+anova(rectest2,rectest3) #pre.post not sig
+anova(rectest2,rectest4) #grp.size SIGNIFICANT
+summary(rectest2) #recoiling dec w grp.size
+summary(rectest4)
+
+prerectest1<-lm(Duration[pretest$Behaviour=="rec"]~Pre.post[pretest$Behaviour=="rec"]*Grp.size[pretest$Behaviour=="rec"],data=pretest)
+prerectest2<-lm(Duration[pretest$Behaviour=="rec"]~Pre.post[pretest$Behaviour=="rec"]+Grp.size[pretest$Behaviour=="rec"],data=pretest)
+prerectest3<-lm(Duration[pretest$Behaviour=="rec"]~Pre.post[pretest$Behaviour=="rec"],data=pretest)
+prerectest4<-lm(Duration[pretest$Behaviour=="rec"]~Grp.size[pretest$Behaviour=="rec"],data=pretest)
+anova(prerectest1,prerectest2) #interaction not sig
+anova(prerectest2,prerectest3) #pre.post not sig
+anova(prerectest2,prerectest4) #grpsize not sig
+
+
+#trophallaxis
+plot(termite$Grp_size,termite$pre_trop,xlab = "Original Group Size",ylab = "Average trophallaxis (s)",pch=19,col="dark green",bty="l") #dec
+trop1<-lm(pre_trop~Grp_size,data=termite)
+abline(trop1, lwd =2)
+
+plot(termite$Grp_size,termite$post_trop_inter)
+trop2<-lm(post_trop_inter~Grp_size,data=termite)
+abline(trop2,col = "red", lwd = 2)
+
+plot(termite$Grp_size,termite$post_trop_intra) 
+trop3<-lm(post_trop_intra~Grp_size,data=termite)
+abline(trop3,col = "blue", lwd = 2)
+
+troptest1<-lm(Duration[test$Behaviour=="trop"]~Pre.post[test$Behaviour=="trop"]*Grp.size[test$Behaviour=="trop"],data=test)
+troptest2<-lm(Duration[test$Behaviour=="trop"]~Pre.post[test$Behaviour=="trop"]+Grp.size[test$Behaviour=="trop"],data=test)
+troptest3<-lm(Duration[test$Behaviour=="trop"]~Pre.post[test$Behaviour=="trop"],data=test)
+troptest4<-lm(Duration[test$Behaviour=="trop"]~Grp.size[test$Behaviour=="trop"],data=test)
+anova(troptest1,troptest2) #interaction not sig
+anova(troptest2,troptest3) #pre.post SIGNIFICANT
+anova(troptest2,troptest4) #grp.size SIGNIFICANT
+
+summary(troptest2) #larger trop in post #more trop in smaller grps
+
+
+pretroptest1<-lm(Duration[pretest$Behaviour=="trop"]~Pre.post[pretest$Behaviour=="trop"]*Grp.size[pretest$Behaviour=="trop"],data=pretest)
+pretroptest2<-lm(Duration[pretest$Behaviour=="trop"]~Pre.post[pretest$Behaviour=="trop"]+Grp.size[pretest$Behaviour=="trop"],data=pretest)
+pretroptest3<-lm(Duration[pretest$Behaviour=="trop"]~Pre.post[pretest$Behaviour=="trop"],data=pretest)
+pretroptest4<-lm(Duration[pretest$Behaviour=="trop"]~Grp.size[pretest$Behaviour=="trop"],data=pretest)
+anova(pretroptest1,pretroptest2) #interaction not sig
+anova(pretroptest2,pretroptest3) #PRE.POST SIG
+anova(pretroptest2,pretroptest4) #grpsize not sig
+
+summary(pretroptest2)
